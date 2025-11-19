@@ -1,0 +1,7 @@
+{
+  "name": "DhanAI",
+  "description": "An adaptive, explainable AI system that automatically categorises financial transactions for both personal and business users, offering insights and financial advice.",
+  "requestFramePermissions": [
+    "microphone"
+  ]
+}
