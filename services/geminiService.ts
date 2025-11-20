@@ -6,22 +6,15 @@ import type { Transaction } from '../types';
 
 const getAiClient = () => {
   // Safely access process.env to avoid ReferenceError in browser
-  let apiKey: string | undefined;
-  try {
-      // @ts-ignore
-      if (typeof process !== 'undefined' && process.env) {
-          // @ts-ignore
-          apiKey = process.env.API_KEY;
-      }
-  } catch (e) {
-      console.warn("Could not access process.env");
-  }
+  const getAIClient = () => {
+  const apiKey = import.meta.env.VITE_GEMINI_API_KEY;
 
   if (!apiKey) {
-    console.error("API_KEY environment variable not set");
-    throw new Error("API_KEY environment variable not set");
+    console.error("VITE_GEMINI_API_KEY not found");
+    throw new Error("VITE_GEMINI_API_KEY not set");
   }
-  return new GoogleGenAI({ apiKey: apiKey });
+
+  return new GoogleGenAI({ apiKey });
 };
 
 export const categorizeTransaction = async (description: string, mode: AppMode, rules: CategorizationRule[] = []): Promise<{ category: string, explanation: string }> => {
@@ -92,7 +85,7 @@ export const getFinancialAdvice = async (messages: { role: string, parts: { text
     const responseStream = await ai.chats.create({
         model: 'gemini-2.5-flash',
         config: { systemInstruction },
-      }).sendMessageStream({ history: messages, message: messages[messages.length-1].parts[0].text });
+      }).sendMessageStream({ message: messages[messages.length-1].parts[0].text });
 
     return responseStream;
 };
