@@ -2,7 +2,7 @@
 import React from 'react';
 import { Transaction, AppMode, Language, AutoPayMandate, EmiDetails } from './types';
 
-export const APP_LOGO_URI = `dp.webp`;
+export const APP_LOGO_URI = `/dp.webp`;
 
 export const BACKGROUND_IMAGE_URL = `linear-gradient(135deg, #22223b, #4a4e69)`;
 
